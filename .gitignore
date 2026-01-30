@@ -1,0 +1,27 @@
+# Compiler files
+cache/
+out/
+broadcast/
+
+# Ignores development broadcast logs
+!/broadcast
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Dotenv file
+.env
+
+# Dependencies (users should install these locally with forge install)
+lib/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+
+# Node modules (if using hardhat alongside)
+node_modules/
