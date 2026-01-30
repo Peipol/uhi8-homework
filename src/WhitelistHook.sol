@@ -25,6 +25,7 @@ contract WhitelistHook is BaseHook {
 
     error NotWhitelisted();
     error OnlyOwner();
+    error InvalidAddress();
 
     modifier onlyOwner() {
         if (msg.sender != owner) revert OnlyOwner();
@@ -58,6 +59,7 @@ contract WhitelistHook is BaseHook {
     /// @notice Add an address to the whitelist
     /// @param account The address to whitelist
     function addToWhitelist(address account) external onlyOwner {
+        if (account == address(0)) revert InvalidAddress();
         whitelist[account] = true;
         emit AddressWhitelisted(account);
     }

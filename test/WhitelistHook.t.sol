@@ -4,7 +4,6 @@ pragma solidity ^0.8.26;
 import {Test} from "forge-std/Test.sol";
 import {Deployers} from "v4-core/test/utils/Deployers.sol";
 import {IPoolManager} from "v4-core/interfaces/IPoolManager.sol";
-import {Currency} from "v4-core/types/Currency.sol";
 import {PoolId, PoolIdLibrary} from "v4-core/types/PoolId.sol";
 import {PoolKey} from "v4-core/types/PoolKey.sol";
 import {Hooks} from "v4-core/libraries/Hooks.sol";

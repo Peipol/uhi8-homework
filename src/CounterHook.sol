@@ -5,6 +5,7 @@ import {BaseHook} from "v4-periphery/src/base/hooks/BaseHook.sol";
 import {IPoolManager} from "v4-core/interfaces/IPoolManager.sol";
 import {Hooks} from "v4-core/libraries/Hooks.sol";
 import {PoolKey} from "v4-core/types/PoolKey.sol";
+import {PoolId, PoolIdLibrary} from "v4-core/types/PoolId.sol";
 import {BalanceDelta} from "v4-core/types/BalanceDelta.sol";
 import {BeforeSwapDelta, BeforeSwapDeltaLibrary} from "v4-core/types/BeforeSwapDelta.sol";
 
@@ -12,11 +13,13 @@ import {BeforeSwapDelta, BeforeSwapDeltaLibrary} from "v4-core/types/BeforeSwapD
 /// @notice A simple example hook that counts the number of swaps
 /// @dev This hook demonstrates basic hook functionality for educational purposes
 contract CounterHook is BaseHook {
+    using PoolIdLibrary for PoolKey;
+
     /// @notice Emitted when a swap is counted
     event SwapCounted(address indexed sender, uint256 count);
 
     /// @notice Mapping to track swap counts per pool
-    mapping(bytes32 => uint256) public swapCounts;
+    mapping(PoolId => uint256) public swapCounts;
 
     constructor(IPoolManager _poolManager) BaseHook(_poolManager) {}
 
@@ -56,7 +59,7 @@ contract CounterHook is BaseHook {
         bytes calldata hookData
     ) external override onlyPoolManager returns (bytes4, BeforeSwapDelta, uint24) {
         // Increment the swap count for this pool
-        bytes32 poolId = keccak256(abi.encode(key));
+        PoolId poolId = key.toId();
         swapCounts[poolId]++;
         
         return (this.beforeSwap.selector, BeforeSwapDeltaLibrary.ZERO_DELTA, 0);
@@ -77,7 +80,7 @@ contract CounterHook is BaseHook {
         BalanceDelta delta,
         bytes calldata hookData
     ) external override onlyPoolManager returns (bytes4, int128) {
-        bytes32 poolId = keccak256(abi.encode(key));
+        PoolId poolId = key.toId();
         emit SwapCounted(sender, swapCounts[poolId]);
         
         return (this.afterSwap.selector, 0);
@@ -87,7 +90,7 @@ contract CounterHook is BaseHook {
     /// @param key The pool key
     /// @return The number of swaps for this pool
     function getSwapCount(PoolKey calldata key) external view returns (uint256) {
-        bytes32 poolId = keccak256(abi.encode(key));
+        PoolId poolId = key.toId();
         return swapCounts[poolId];
     }
 }

@@ -9,6 +9,9 @@ solc_version = "0.8.26"
 evm_version = "cancun"
 optimizer = true
 optimizer_runs = 10000
+# via_ir is set to false for faster compilation during development
+# Consider setting to true for production deployments to enable better optimization
+# and avoid stack-too-deep errors in complex contracts
 via_ir = false
 
 [rpc_endpoints]

@@ -6,6 +6,12 @@ import {console} from "forge-std/console.sol";
 import {IPoolManager} from "v4-core/interfaces/IPoolManager.sol";
 import {CounterHook} from "../src/CounterHook.sol";
 
+/// @notice Deployment script for CounterHook
+/// @dev WARNING: This script uses CREATE which does not guarantee the hook address
+///      will match the required prefix based on hook permissions. In production,
+///      you should use CREATE2 with proper address mining to deploy hooks at
+///      addresses that satisfy the hook permission requirements.
+///      See: https://github.com/Uniswap/v4-periphery for examples.
 contract DeployCounterHook is Script {
     function run() external {
         // Load deployer private key from environment

@@ -3,20 +3,14 @@ pragma solidity ^0.8.26;
 
 import {Test} from "forge-std/Test.sol";
 import {Deployers} from "v4-core/test/utils/Deployers.sol";
-import {PoolManager} from "v4-core/PoolManager.sol";
 import {IPoolManager} from "v4-core/interfaces/IPoolManager.sol";
-import {Currency, CurrencyLibrary} from "v4-core/types/Currency.sol";
-import {PoolId, PoolIdLibrary} from "v4-core/types/PoolId.sol";
 import {PoolKey} from "v4-core/types/PoolKey.sol";
+import {PoolId, PoolIdLibrary} from "v4-core/types/PoolId.sol";
 import {Hooks} from "v4-core/libraries/Hooks.sol";
-import {TickMath} from "v4-core/libraries/TickMath.sol";
 import {CounterHook} from "../src/CounterHook.sol";
-import {PoolSwapTest} from "v4-core/test/PoolSwapTest.sol";
-import {LiquidityAmounts} from "v4-core/test/utils/LiquidityAmounts.sol";
 
 contract CounterHookTest is Test, Deployers {
     using PoolIdLibrary for PoolKey;
-    using CurrencyLibrary for Currency;
 
     CounterHook hook;
     PoolKey poolKey;
