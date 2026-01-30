@@ -14,6 +14,8 @@ This project provides a foundation for learning and experimenting with Uniswap v
 - [Foundry](https://book.getfoundry.sh/getting-started/installation) - Smart contract development framework
 - Git for version control
 
+Note: This repository includes a GitHub Actions workflow (`.github/workflows/test.yml`) that automatically runs tests on push and pull requests.
+
 ## Installation
 
 1. Clone the repository:
