@@ -24,6 +24,11 @@ cd uhi8-homework
 
 2. Install dependencies:
 ```bash
+make install
+```
+
+Or manually:
+```bash
 forge install foundry-rs/forge-std --no-commit
 forge install Uniswap/v4-core --no-commit
 forge install Uniswap/v4-periphery --no-commit
@@ -31,21 +36,47 @@ forge install Uniswap/v4-periphery --no-commit
 
 3. Build the project:
 ```bash
-forge build
+make build
+```
+
+## Quick Start
+
+```bash
+# Install dependencies
+make install
+
+# Build contracts
+make build
+
+# Run all tests
+make test
+
+# Run tests with verbose output
+make test-v
+
+# Run a specific test
+make test-match TEST=test_swapIncrementsCounter
+
+# Clean build artifacts
+make clean
 ```
 
 ## Project Structure
 
 ```
 .
-├── src/                    # Smart contracts
-│   └── CounterHook.sol    # Example hook that counts swaps
-├── test/                   # Test files
-│   └── CounterHook.t.sol  # Tests for CounterHook
-├── script/                 # Deployment scripts
+├── src/                      # Smart contracts
+│   ├── CounterHook.sol      # Example hook that counts swaps
+│   └── WhitelistHook.sol    # Example hook with access control
+├── test/                     # Test files
+│   ├── CounterHook.t.sol    # Tests for CounterHook
+│   └── WhitelistHook.t.sol  # Tests for WhitelistHook
+├── script/                   # Deployment scripts
 │   └── DeployCounterHook.s.sol
-├── foundry.toml           # Foundry configuration
-└── remappings.txt         # Import remappings
+├── foundry.toml             # Foundry configuration
+├── remappings.txt           # Import remappings
+├── Makefile                 # Common development tasks
+└── CONTRIBUTING.md          # Guide for hook development
 ```
 
 ## Usage
@@ -89,14 +120,25 @@ POOL_MANAGER_ADDRESS=uniswap_v4_pool_manager_address
 forge script script/DeployCounterHook.s.sol --rpc-url <your_rpc_url> --broadcast
 ```
 
-## Example Hook: CounterHook
+## Example Hooks
+
+### 1. CounterHook
 
 The `CounterHook` is a simple educational example that:
 - Implements `beforeSwap` and `afterSwap` hooks
 - Counts the number of swaps per pool
 - Emits events when swaps are counted
+- Demonstrates basic hook callback implementation
 
-This serves as a starting point for understanding how hooks work in Uniswap v4.
+### 2. WhitelistHook
+
+The `WhitelistHook` demonstrates access control patterns:
+- Implements `beforeSwap` hook
+- Restricts swaps to whitelisted addresses only
+- Shows owner-based access control
+- Demonstrates how to enforce permissions in hooks
+
+Both examples serve as starting points for understanding how hooks work in Uniswap v4.
 
 ## Learning Resources
 

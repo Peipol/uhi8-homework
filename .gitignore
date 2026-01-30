@@ -11,7 +11,7 @@ broadcast/
 # Dotenv file
 .env
 
-# Dependencies
+# Dependencies (users should install these locally with forge install)
 lib/
 
 # IDEs
@@ -22,3 +22,6 @@ lib/
 
 # OS
 .DS_Store
+
+# Node modules (if using hardhat alongside)
+node_modules/
